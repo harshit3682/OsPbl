@@ -2,7 +2,7 @@
   "name": "ospbl",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://harshit3682.github.io/ospbl",
+  "homepage": "https://harshit3682.github.io/OsPbl",
   "dependencies": {
     "18": "^0.0.0",
     "@testing-library/dom": "^10.4.0",

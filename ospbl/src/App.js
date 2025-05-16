@@ -1,52 +1,91 @@
-import { useState } from 'react';
-import './App.css';
+import React from "react";
+import { useState } from "react";
+import "./App.css";
 
-import ProcessInput from './components/ProcessInput';
-import GanttChart from './components/GanttChart';
-import ResultTable from './components/ResultTable';
-import ComparisonChart from './components/ComparisonChart';
+import ProcessInput from "./components/ProcessInput";
+import GanttChart from "./components/GanttChart";
+import ResultTable from "./components/ResultTable";
+import ComparisonChart from "./components/ComparisonChart";
 
-import { runFCFS } from './algorithms/fcfs';
-import { runSJF } from './algorithms/sjf';
-import { runPriority } from './algorithms/priority';
-import { runRoundRobin } from './algorithms/rr';
-import { runSRTF } from './algorithms/srtf';
-import { runPreemptivePriority } from './algorithms/preemptivePriority';
+import { runFCFS } from "./algorithms/fcfs";
+import { runSJF } from "./algorithms/sjf";
+import { runPriority } from "./algorithms/priority";
+import { runRoundRobin } from "./algorithms/rr";
+import { runSRTF } from "./algorithms/srtf";
+import { runPreemptivePriority } from "./algorithms/preemptivePriority";
 
-import { COLORS, algorithms } from './utils/constants';
+import { COLORS, algorithms } from "./utils/constants";
 
 export default function CPUSchedulerSimulator() {
   const [processes, setProcesses] = useState([
-    { id: 1, name: "P1", arrivalTime: 0, burstTime: 8, priority: 3, color: COLORS[0] },
-    { id: 2, name: "P2", arrivalTime: 1, burstTime: 4, priority: 1, color: COLORS[1] },
-    { id: 3, name: "P3", arrivalTime: 2, burstTime: 9, priority: 2, color: COLORS[2] },
-    { id: 4, name: "P4", arrivalTime: 3, burstTime: 5, priority: 4, color: COLORS[3] }
+    {
+      id: 1,
+      name: "P1",
+      arrivalTime: 0,
+      burstTime: 8,
+      priority: 3,
+      color: COLORS[0],
+    },
+    {
+      id: 2,
+      name: "P2",
+      arrivalTime: 1,
+      burstTime: 4,
+      priority: 1,
+      color: COLORS[1],
+    },
+    {
+      id: 3,
+      name: "P3",
+      arrivalTime: 2,
+      burstTime: 9,
+      priority: 2,
+      color: COLORS[2],
+    },
+    {
+      id: 4,
+      name: "P4",
+      arrivalTime: 3,
+      burstTime: 5,
+      priority: 4,
+      color: COLORS[3],
+    },
   ]);
 
   const [quantum, setQuantum] = useState(2);
-  const [selectedAlgorithm, setSelectedAlgorithm] = useState('all');
-  const [chartMode, setChartMode] = useState('gantt');
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState("all");
+  const [chartMode, setChartMode] = useState("gantt");
   const [results, setResults] = useState({});
   const [ganttData, setGanttData] = useState({});
 
   const addProcess = () => {
-    const nextId = processes.length ? Math.max(...processes.map(p => p.id)) + 1 : 1;
-    setProcesses([...processes, {
-      id: nextId,
-      name: `P${nextId}`,
-      arrivalTime: 0,
-      burstTime: 5,
-      priority: 1,
-      color: COLORS[processes.length % COLORS.length]
-    }]);
+    const nextId = processes.length
+      ? Math.max(...processes.map((p) => p.id)) + 1
+      : 1;
+    setProcesses([
+      ...processes,
+      {
+        id: nextId,
+        name: `P${nextId}`,
+        arrivalTime: 0,
+        burstTime: 5,
+        priority: 1,
+        color: COLORS[processes.length % COLORS.length],
+      },
+    ]);
   };
 
-  const removeProcess = (id) => setProcesses(processes.filter(p => p.id !== id));
+  const removeProcess = (id) =>
+    setProcesses(processes.filter((p) => p.id !== id));
 
   const handleProcessChange = (id, field, value) => {
-    setProcesses(processes.map(p =>
-      p.id === id ? { ...p, [field]: field === 'name' ? value : parseInt(value) || 0 } : p
-    ));
+    setProcesses(
+      processes.map((p) =>
+        p.id === id
+          ? { ...p, [field]: field === "name" ? value : parseInt(value) || 0 }
+          : p
+      )
+    );
   };
 
   const runSimulation = () => {
@@ -95,8 +134,9 @@ export default function CPUSchedulerSimulator() {
         priority: results.priority?.averageTurnaroundTime ?? 0,
         rr: results.rr?.averageTurnaroundTime ?? 0,
         srtf: results.srtf?.averageTurnaroundTime ?? 0,
-        preemptivePriority: results.preemptivePriority?.averageTurnaroundTime ?? 0,
-      }
+        preemptivePriority:
+          results.preemptivePriority?.averageTurnaroundTime ?? 0,
+      },
     ];
   };
 
@@ -114,27 +154,72 @@ export default function CPUSchedulerSimulator() {
       <div className="bg-white rounded shadow p-4 mb-6">
         <h2 className="text-lg font-semibold mb-2">Algorithm & Chart</h2>
         <div className="flex flex-wrap gap-4 items-center mb-2">
-          <select value={selectedAlgorithm} onChange={e => setSelectedAlgorithm(e.target.value)} className="border rounded p-2">
-            {algorithms.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
+          <select
+            value={selectedAlgorithm}
+            onChange={(e) => setSelectedAlgorithm(e.target.value)}
+            className="border rounded p-2"
+          >
+            {algorithms.map((a) => (
+              <option key={a.id} value={a.id}>
+                {a.name}
+              </option>
+            ))}
           </select>
-          <input type="number" min="1" value={quantum} onChange={e => setQuantum(parseInt(e.target.value) || 1)} className="border rounded p-2 w-24" disabled={selectedAlgorithm !== 'rr'} />
-          <button onClick={() => setChartMode('gantt')} className={`px-3 py-1 rounded ${chartMode === 'gantt' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}>Gantt Chart</button>
-          <button onClick={() => setChartMode('line')} className={`px-3 py-1 rounded ${chartMode === 'line' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}>Line Chart</button>
-          <button onClick={runSimulation} className="bg-blue-600 text-white px-4 py-1 rounded">Run Simulation</button>
+          <input
+            type="number"
+            min="1"
+            value={quantum}
+            onChange={(e) => setQuantum(parseInt(e.target.value) || 1)}
+            className="border rounded p-2 w-24"
+            disabled={selectedAlgorithm !== "rr"}
+          />
+          <button
+            onClick={() => setChartMode("gantt")}
+            className={`px-3 py-1 rounded ${
+              chartMode === "gantt" ? "bg-blue-600 text-white" : "bg-gray-200"
+            }`}
+          >
+            Gantt Chart
+          </button>
+          <button
+            onClick={() => setChartMode("line")}
+            className={`px-3 py-1 rounded ${
+              chartMode === "line" ? "bg-blue-600 text-white" : "bg-gray-200"
+            }`}
+          >
+            Line Chart
+          </button>
+          <button
+            onClick={runSimulation}
+            className="bg-blue-600 text-white px-4 py-1 rounded"
+          >
+            Run Simulation
+          </button>
         </div>
       </div>
 
       {Object.keys(results).length > 0 && (
         <div className="bg-white rounded shadow p-4 mb-6">
           <h2 className="text-lg font-semibold mb-2">Results</h2>
-          {selectedAlgorithm === 'all' ? (
+          {selectedAlgorithm === "all" ? (
             <>
-              {chartMode === 'line' && <ComparisonChart chartData={getComparisonChartData()} />}
-              {chartMode === 'gantt' && (
+              {chartMode === "line" && (
+                <ComparisonChart chartData={getComparisonChartData()} />
+              )}
+              {chartMode === "gantt" && (
                 <div className="flex flex-row flex-wrap gap-8">
-                  {['fcfs', 'sjf', 'priority', 'rr', 'srtf', 'preemptivePriority'].map(algo => (
+                  {[
+                    "fcfs",
+                    "sjf",
+                    "priority",
+                    "rr",
+                    "srtf",
+                    "preemptivePriority",
+                  ].map((algo) => (
                     <div key={algo} className="flex-1 min-w-[340px]">
-                      <h3 className="font-semibold mb-1">{algorithms.find(a => a.id === algo).name}</h3>
+                      <h3 className="font-semibold mb-1">
+                        {algorithms.find((a) => a.id === algo).name}
+                      </h3>
                       <GanttChart data={ganttData[algo]} />
                       <ResultTable algorithmResult={results[algo]} />
                     </div>
@@ -144,8 +229,12 @@ export default function CPUSchedulerSimulator() {
             </>
           ) : (
             <>
-              <h3 className="font-semibold mb-1">{algorithms.find(a => a.id === selectedAlgorithm)?.name}</h3>
-              {chartMode === 'gantt' && <GanttChart data={ganttData[selectedAlgorithm]} />}
+              <h3 className="font-semibold mb-1">
+                {algorithms.find((a) => a.id === selectedAlgorithm)?.name}
+              </h3>
+              {chartMode === "gantt" && (
+                <GanttChart data={ganttData[selectedAlgorithm]} />
+              )}
               <ResultTable algorithmResult={results[selectedAlgorithm]} />
             </>
           )}

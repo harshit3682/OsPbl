@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/ospbl/static/css/main.435d5fe5.chunk.css",
-    "main.js": "/ospbl/static/js/main.b8925b30.chunk.js",
-    "main.js.map": "/ospbl/static/js/main.b8925b30.chunk.js.map",
-    "runtime~main.js": "/ospbl/static/js/runtime~main.5a42d1f4.js",
-    "runtime~main.js.map": "/ospbl/static/js/runtime~main.5a42d1f4.js.map",
-    "static/js/2.c463d555.chunk.js": "/ospbl/static/js/2.c463d555.chunk.js",
-    "static/js/2.c463d555.chunk.js.map": "/ospbl/static/js/2.c463d555.chunk.js.map",
-    "static/js/3.5ee739d5.chunk.js": "/ospbl/static/js/3.5ee739d5.chunk.js",
-    "static/js/3.5ee739d5.chunk.js.map": "/ospbl/static/js/3.5ee739d5.chunk.js.map",
-    "index.html": "/ospbl/index.html",
-    "precache-manifest.d6c0a67ad2eefbffe5db42808d39939b.js": "/ospbl/precache-manifest.d6c0a67ad2eefbffe5db42808d39939b.js",
-    "service-worker.js": "/ospbl/service-worker.js",
-    "static/css/main.435d5fe5.chunk.css.map": "/ospbl/static/css/main.435d5fe5.chunk.css.map"
+    "main.css": "/OsPbl/static/css/main.435d5fe5.chunk.css",
+    "main.js": "/OsPbl/static/js/main.0e0702a3.chunk.js",
+    "main.js.map": "/OsPbl/static/js/main.0e0702a3.chunk.js.map",
+    "runtime~main.js": "/OsPbl/static/js/runtime~main.cd0e1c0e.js",
+    "runtime~main.js.map": "/OsPbl/static/js/runtime~main.cd0e1c0e.js.map",
+    "static/js/2.c463d555.chunk.js": "/OsPbl/static/js/2.c463d555.chunk.js",
+    "static/js/2.c463d555.chunk.js.map": "/OsPbl/static/js/2.c463d555.chunk.js.map",
+    "static/js/3.5ee739d5.chunk.js": "/OsPbl/static/js/3.5ee739d5.chunk.js",
+    "static/js/3.5ee739d5.chunk.js.map": "/OsPbl/static/js/3.5ee739d5.chunk.js.map",
+    "index.html": "/OsPbl/index.html",
+    "precache-manifest.293c0f71acf6b720118fde55fd850127.js": "/OsPbl/precache-manifest.293c0f71acf6b720118fde55fd850127.js",
+    "service-worker.js": "/OsPbl/service-worker.js",
+    "static/css/main.435d5fe5.chunk.css.map": "/OsPbl/static/css/main.435d5fe5.chunk.css.map"
   }
 }
